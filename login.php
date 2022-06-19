@@ -1,18 +1,24 @@
 <?php
+include("dbconnection.php");
 session_start();
 
 if (isset($_POST["user"]) && !isset($_SESSION["user"])) {
-  $users = [
-    "admin" => "1234",
-  ];
 
-  if (isset($users[$_POST["user"]])) {
-    if ($users[$_POST["user"]] == $_POST["password"]) {
-      $_SESSION["user"] = $_POST["user"];
-    }
-  }
+  $myusername = mysqli_real_escape_string($conn, $_POST['user']);
+  $mypassword = mysqli_real_escape_string($conn, $_POST['password']);
 
-  if (!isset($_SESSION["user"])) {
+  $sql = "SELECT * FROM users WHERE user = '$myusername' and password = '$mypassword'";
+  $result = mysqli_query($conn, $sql);
+  $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+  $active = $row['active'];
+  $count = mysqli_num_rows($result);
+
+  // echo $count;
+  // die();
+
+  if ($count == 1) {
+    $_SESSION["user"] = $_POST["user"];
+  } else {
     $failed = true;
   }
 }
