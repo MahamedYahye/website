@@ -1,14 +1,11 @@
 <?php
 
-// $servername = "smartplantdb.mysql.database.azure.com";
-// $database = "smartplant";
-// $username = "Smartplant";
-// $password = "Admin01!!";
+$servername = "Name;
+$database = "Dbname";
+$username = "Username";
+ $password = "Password";
 
-$servername = "localhost";
-$database = "fiverr-dekolakola-website";
-$username = "root";
-$password = "root";
+
 
 $conn = mysqli_connect($servername, $username, $password, $database);
 if ($conn->connect_error) {
